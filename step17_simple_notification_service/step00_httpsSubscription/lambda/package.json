@@ -1,0 +1,17 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "types": "./hello.d.ts",
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.89",
+    "aws-lambda": "^1.0.7"
+  }
+}
