@@ -3,7 +3,7 @@
 ## Steps to code
 
 1. Create new directory using `mkdir step00_httpsSubscription`
-2. Navigate to newly created directory using `cd step00_neptune_lambda`
+2. Navigate to newly created directory using `cd step00_httpsSubscription`
 3. Create cdk app using `cdk init app --language typescript`
 4. use `npm run watch` to auto transpile the code
 5. Update "./lib/step00_httpsSubscription-stack.ts" to create a lambda function.
