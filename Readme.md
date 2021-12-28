@@ -9,6 +9,7 @@ Intracting with different apps and website require notifications on different ev
 ### Sections
 
 - [Simple notification service](./step17_simple_notification_service)
+- [Simple queue service](./step18_simple_queue_service)
 
 ### Reading Material
 
