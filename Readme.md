@@ -11,13 +11,6 @@ Intracting with different apps and website require notifications on different ev
 - [Simple notification service](./step17_simple_notification_service)
 - [Simple queue service](./step18_simple_queue_service)
 
-### Reading Material
-
-- [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
-- [aws-sns module](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-sns-readme.html)
-- [aws-sns-subscriptions module](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-sns-subscriptions-readme.html)
-- [Configuring an Amazon SNS dead-letter queue for a subscription](https://docs.aws.amazon.com/sns/latest/dg/sns-configure-dead-letter-queue.html)
-
 ### Class Videos
 
 - [YouTube English](https://www.youtube.com/watch?v=pHTtY_o-WO0&ab_channel=PanacloudServerlessSaaSTraining)
