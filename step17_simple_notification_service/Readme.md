@@ -3,7 +3,7 @@
 ## Class Notes
 
 - If messag are not sent they can be stored in quee for some period
-- Filters can be applied on some message but filters only work on json objects
+- Filters can be applied on some message but filters only work on json objects (optional)
 
 ## Sections
 
