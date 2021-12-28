@@ -8,7 +8,7 @@
 ## Sections
 
 - [Subscribing HTTPS to an SNS topic](./step00_httpsSubscription)
-- [](./step01_lambdaSubscription)
+- [Subscribing Lambda to an SNS topic](./step01_lambdaSubscription)
 - [](./step02_sqsSubscription)
 - [](./step03_emailSubscription)
 - [](./step04_smsSubscription)
