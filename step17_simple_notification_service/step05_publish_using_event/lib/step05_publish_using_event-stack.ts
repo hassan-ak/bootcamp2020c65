@@ -1,6 +1,7 @@
 import * as cdk from '@aws-cdk/core';
 import * as appsync from '@aws-cdk/aws-appsync';
 import * as events from '@aws-cdk/aws-events';
+import * as sns from '@aws-cdk/aws-sns';
 
 export class Step05PublishUsingEventStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -44,20 +45,20 @@ export class Step05PublishUsingEventStack extends cdk.Stack {
       requestMappingTemplate: appsync.MappingTemplate.fromFile('request.vtl'),
       responseMappingTemplate: appsync.MappingTemplate.fromFile('response.vtl'),
     });
+
+    // create an SNS topic
+    const myTopic = new sns.Topic(this, 'MyTopic');
     //////////
     // import * as cdk from '@aws-cdk/core';
 
     // import * as targets from '@aws-cdk/aws-events-targets';
     // import * as subscriptions from '@aws-cdk/aws-sns-subscriptions';
-    // import * as sns from '@aws-cdk/aws-sns';
+
     // import * as sqs from '@aws-cdk/aws-sqs';
 
     // export class Step05PublishUsingEventStack extends cdk.Stack {
     //   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     //     super(scope, id, props);
-
-    //     // create an SNS topic
-    //     const myTopic = new sns.Topic(this, 'MyTopic');
 
     //     // create a dead letter queue
     //     const dlQueue = new sqs.Queue(this, 'DeadLetterQueue', {

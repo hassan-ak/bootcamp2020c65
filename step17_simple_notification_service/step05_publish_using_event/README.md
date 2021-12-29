@@ -110,3 +110,10 @@
         $utils.appendError($ctx.result.body, $ctx.result.statusCode)
     #end
     ```
+
+11. Install simple notification module using `npm i @aws-cdk/aws-sns`. Update "./lib/step05_publish_using_event-stack.ts" to create a new topic
+
+    ```js
+    import * as sns from '@aws-cdk/aws-sns';
+    const myTopic = new sns.Topic(this, 'MyTopic');
+    ```
