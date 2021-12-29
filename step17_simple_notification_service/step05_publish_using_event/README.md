@@ -95,3 +95,18 @@
         }
    }
    ```
+
+10. create "response.vtl" to define response maping template
+
+    ```vtl
+    #if($ctx.error)
+        $util.error($ctx.error.message, $ctx.error.type)
+    #end
+    #if($ctx.result.statusCode == 200)
+        {
+            "result": "$util.parseJson($ctx.result.body)"
+        }
+    #else
+        $utils.appendError($ctx.result.body, $ctx.result.statusCode)
+    #end
+    ```
