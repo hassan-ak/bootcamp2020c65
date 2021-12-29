@@ -56,5 +56,6 @@
    ```
 
 9. Deploy using `cdk deploy`
-10. This stack will do nothing just a queue will be set up and can be used with any other service
-11. Destroy using `cdk destroy`
+10. Go to Queue console and send message
+11. Sent message will be recieved in the lambda function
+12. Destroy using `cdk destroy`
