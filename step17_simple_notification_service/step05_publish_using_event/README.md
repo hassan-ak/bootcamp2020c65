@@ -1,14 +1,41 @@
-# Welcome to your CDK TypeScript project!
+# Publishing data on an SNS topic using eventbridge
 
-This is a blank project for TypeScript development with CDK.
+## Stesp to code
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+1. Create new directory using `mkdir step05_publish_using_event`
+2. Navigate to newly created directory using `cd step05_publish_using_event`
+3. Create cdk app using `cdk init app --language typescript`
+4. use `npm run watch` to auto transpile the code
+5. Install appSync module using `npm i @aws-cdk/aws-appsync`. Update "./lib/step05_publish_using_event-stack.ts" to create a new GQL api to invoke the producer function
 
-## Useful commands
+   ```js
+   import * as appsync from '@aws-cdk/aws-appsync';
+   const api = new appsync.GraphqlApi(this, 'Api', {
+     name: 'appsyncEventbridgeAPI',
+     schema: appsync.Schema.fromAsset('schema/schema.graphql'),
+     authorizationConfig: {
+       defaultAuthorization: {
+         authorizationType: appsync.AuthorizationType.API_KEY,
+         apiKeyConfig: {
+           expires: cdk.Expiration.after(cdk.Duration.days(365)),
+         },
+       },
+     },
+     logConfig: { fieldLogLevel: appsync.FieldLogLevel.ALL },
+     xrayEnabled: true,
+   });
+   ```
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+6. Create ".schema/schema.graphql" to define schema for the api
+
+   ```gql
+   type Event {
+     result: String
+   }
+   type Query {
+     getEvent: [Event]
+   }
+   type Mutation {
+     createEvent(event: String!): Event
+   }
+   ```
