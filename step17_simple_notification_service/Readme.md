@@ -11,7 +11,7 @@
 - [Subscribing Lambda to an SNS topic](./step01_lambdaSubscription)
 - [Subscribing SQS to an SNS topic](./step02_sqsSubscription)
 - [Subscribing Email to an SNS topic](./step03_emailSubscription)
-- [](./step04_smsSubscription)
+- [Subscribing SMS to an SNS topic](./step04_smsSubscription)
 - [](./step05_publish_using_event)
 
 ### Reading Material
