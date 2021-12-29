@@ -1,8 +1,8 @@
 {
-  "name": "step0_basic_example",
+  "name": "step1_sqs_to_lambda",
   "version": "0.1.0",
   "bin": {
-    "step0_basic_example": "bin/step0_basic_example.js"
+    "step1_sqs_to_lambda": "bin/step1_sqs_to_lambda.js"
   },
   "scripts": {
     "build": "tsc",

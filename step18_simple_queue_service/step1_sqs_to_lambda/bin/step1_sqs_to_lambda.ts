@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
-import { Step0BasicExampleStack } from '../lib/step0_basic_example-stack';
+import { Step1SqsToLambdaStack } from '../lib/step1_sqs_to_lambda-stack';
 
 const app = new cdk.App();
-new Step0BasicExampleStack(app, 'Step0BasicExampleStack', {
+new Step1SqsToLambdaStack(app, 'Step1SqsToLambdaStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */

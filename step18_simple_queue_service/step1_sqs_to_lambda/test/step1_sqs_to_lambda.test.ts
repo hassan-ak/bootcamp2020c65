@@ -1,13 +1,13 @@
 // import { Template } from '@aws-cdk/assertions';
 // import * as cdk from '@aws-cdk/core';
-// import * as Step0BasicExample from '../lib/step0_basic_example-stack';
+// import * as Step1SqsToLambda from '../lib/step1_sqs_to_lambda-stack';
 
 // example test. To run these tests, uncomment this file along with the
-// example resource in lib/step0_basic_example-stack.ts
+// example resource in lib/step1_sqs_to_lambda-stack.ts
 test('SQS Queue Created', () => {
 //   const app = new cdk.App();
 //     // WHEN
-//   const stack = new Step0BasicExample.Step0BasicExampleStack(app, 'MyTestStack');
+//   const stack = new Step1SqsToLambda.Step1SqsToLambdaStack(app, 'MyTestStack');
 //     // THEN
 //   const template = Template.fromStack(stack);
 
