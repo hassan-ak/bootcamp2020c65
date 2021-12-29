@@ -12,7 +12,7 @@
 - [Subscribing SQS to an SNS topic](./step02_sqsSubscription)
 - [Subscribing Email to an SNS topic](./step03_emailSubscription)
 - [Subscribing SMS to an SNS topic](./step04_smsSubscription)
-- [](./step05_publish_using_event)
+- [Publishing data on an SNS topic using eventbridge](./step05_publish_using_event)
 
 ### Reading Material
 
