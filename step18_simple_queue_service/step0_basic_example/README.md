@@ -6,7 +6,7 @@
 2. Navigate to newly created directory using `cd step0_basic_example`
 3. Create cdk v1 app using `cdk init app --language typescript`
 4. use `npm run watch` to auto transpile the code
-5. Install simple qeue services in the stack using `npm i '@aws-cdk/aws-sqs`. Update "./lib/step0_basic_example-stack.ts" to define a queue
+5. Install simple qeue services in the stack using `npm i @aws-cdk/aws-sqs`. Update "./lib/step0_basic_example-stack.ts" to define a queue
 
    ```js
    import * as sqs from '@aws-cdk/aws-sqs';
