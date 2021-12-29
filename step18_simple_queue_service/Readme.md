@@ -1,4 +1,4 @@
-# Step17 - Amazon Simple Queue Service (SQS)
+# Step18 - Amazon Simple Queue Service (SQS)
 
 ## Class Notes
 
