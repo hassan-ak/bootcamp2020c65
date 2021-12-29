@@ -1,5 +1,6 @@
 import * as cdk from '@aws-cdk/core';
 import * as appsync from '@aws-cdk/aws-appsync';
+import * as events from '@aws-cdk/aws-events';
 
 export class Step05PublishUsingEventStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -21,9 +22,30 @@ export class Step05PublishUsingEventStack extends cdk.Stack {
       xrayEnabled: true,
     });
 
+    // HTTP DATASOURCE
+    const httpDs = api.addHttpDataSource(
+      'ds',
+      'https://events.' + this.region + '.amazonaws.com/', // This is the ENDPOINT for eventbridge.
+      {
+        name: 'httpDsWithEventBridge',
+        description: 'From Appsync to Eventbridge',
+        authorizationConfig: {
+          signingRegion: this.region,
+          signingServiceName: 'events',
+        },
+      }
+    );
+    events.EventBus.grantAllPutEvents(httpDs);
+
+    // RESOLVER
+    const putEventResolver = httpDs.createResolver({
+      typeName: 'Mutation',
+      fieldName: 'createEvent',
+      requestMappingTemplate: appsync.MappingTemplate.fromFile('request.vtl'),
+      responseMappingTemplate: appsync.MappingTemplate.fromFile('response.vtl'),
+    });
     //////////
     // import * as cdk from '@aws-cdk/core';
-    // import * as events from '@aws-cdk/aws-events';
 
     // import * as targets from '@aws-cdk/aws-events-targets';
     // import * as subscriptions from '@aws-cdk/aws-sns-subscriptions';
@@ -33,31 +55,6 @@ export class Step05PublishUsingEventStack extends cdk.Stack {
     // export class Step05PublishUsingEventStack extends cdk.Stack {
     //   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     //     super(scope, id, props);
-
-    //     // HTTP DATASOURCE
-    //     const httpDs = api.addHttpDataSource(
-    //       'ds',
-    //       'https://events.' + this.region + '.amazonaws.com/', // This is the ENDPOINT for eventbridge.
-    //       {
-    //         name: 'httpDsWithEventBridge',
-    //         description: 'From Appsync to Eventbridge',
-    //         authorizationConfig: {
-    //           signingRegion: this.region,
-    //           signingServiceName: 'events',
-    //         },
-    //       }
-    //     );
-    //     events.EventBus.grantPutEvents(httpDs);
-
-    //     // RESOLVER
-    //     const putEventResolver = httpDs.createResolver({
-    //       typeName: 'Mutation',
-    //       fieldName: 'createEvent',
-    //       requestMappingTemplate:
-    //         appsync.MappingTemplate.fromFile('request.vtl'),
-    //       responseMappingTemplate:
-    //         appsync.MappingTemplate.fromFile('response.vtl'),
-    //     });
 
     //     // create an SNS topic
     //     const myTopic = new sns.Topic(this, 'MyTopic');
