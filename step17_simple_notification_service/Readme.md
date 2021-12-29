@@ -10,7 +10,7 @@
 - [Subscribing HTTPS to an SNS topic](./step00_httpsSubscription)
 - [Subscribing Lambda to an SNS topic](./step01_lambdaSubscription)
 - [Subscribing SQS to an SNS topic](./step02_sqsSubscription)
-- [](./step03_emailSubscription)
+- [Subscribing Email to an SNS topic](./step03_emailSubscription)
 - [](./step04_smsSubscription)
 - [](./step05_publish_using_event)
 
