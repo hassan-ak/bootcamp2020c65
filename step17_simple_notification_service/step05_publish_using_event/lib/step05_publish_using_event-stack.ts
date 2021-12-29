@@ -2,6 +2,9 @@ import * as cdk from '@aws-cdk/core';
 import * as appsync from '@aws-cdk/aws-appsync';
 import * as events from '@aws-cdk/aws-events';
 import * as sns from '@aws-cdk/aws-sns';
+import * as sqs from '@aws-cdk/aws-sqs';
+import * as subscriptions from '@aws-cdk/aws-sns-subscriptions';
+import * as targets from '@aws-cdk/aws-events-targets';
 
 export class Step05PublishUsingEventStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -48,43 +51,29 @@ export class Step05PublishUsingEventStack extends cdk.Stack {
 
     // create an SNS topic
     const myTopic = new sns.Topic(this, 'MyTopic');
-    //////////
-    // import * as cdk from '@aws-cdk/core';
 
-    // import * as targets from '@aws-cdk/aws-events-targets';
-    // import * as subscriptions from '@aws-cdk/aws-sns-subscriptions';
+    // create a dead letter queue
+    const dlQueue = new sqs.Queue(this, 'DeadLetterQueue', {
+      queueName: 'MySubscription_DLQ',
+      retentionPeriod: cdk.Duration.days(14),
+    });
 
-    // import * as sqs from '@aws-cdk/aws-sqs';
+    // subscribe email to the topic
+    myTopic.addSubscription(
+      new subscriptions.EmailSubscription('email here', {
+        json: false,
+        deadLetterQueue: dlQueue,
+      })
+    );
 
-    // export class Step05PublishUsingEventStack extends cdk.Stack {
-    //   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    //     super(scope, id, props);
+    // create a rule to publish events on SNS topic
+    const rule = new events.Rule(this, 'AppSyncEventBridgeRule', {
+      eventPattern: {
+        source: ['eru-appsync-events'], // every event that has source = "eru-appsync-events" will be sent to SNS topic
+      },
+    });
 
-    //     // create a dead letter queue
-    //     const dlQueue = new sqs.Queue(this, 'DeadLetterQueue', {
-    //       queueName: 'MySubscription_DLQ',
-    //       retentionPeriod: cdk.Duration.days(14),
-    //     });
-
-    //     // subscribe email to the topic
-    //     myTopic.addSubscription(
-    //       new subscriptions.EmailSubscription('ADD YOUR EMAIL HERE', {
-    //         json: false,
-    //         deadLetterQueue: dlQueue,
-    //       })
-    //     );
-
-    //     // create a rule to publish events on SNS topic
-    //     const rule = new events.Rule(this, 'AppSyncEventBridgeRule', {
-    //       eventPattern: {
-    //         source: ['eru-appsync-events'], // every event that has source = "eru-appsync-events" will be sent to SNS topic
-    //       },
-    //     });
-
-    //     // add the topic as a target to the rule created above
-    //     rule.addTarget(new targets.SnsTopic(myTopic));
-    //   }
-    // }
-    //////////
+    // add the topic as a target to the rule created above
+    rule.addTarget(new targets.SnsTopic(myTopic));
   }
 }
