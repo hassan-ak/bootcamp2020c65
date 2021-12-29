@@ -1,14 +1,29 @@
-# Welcome to your CDK TypeScript project!
+# Basic SQS
 
-This is a blank project for TypeScript development with CDK.
+## Steps to code
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+1. Create new directory using `mkdir step0_basic_example`
+2. Navigate to newly created directory using `cd step0_basic_example`
+3. Create cdk v1 app using `cdk init app --language typescript`
+4. use `npm run watch` to auto transpile the code
+5. Install simple qeue services in the stack using `npm i '@aws-cdk/aws-sqs`. Update "./lib/step0_basic_example-stack.ts" to define a queue
 
-## Useful commands
+   ```js
+   import * as sqs from '@aws-cdk/aws-sqs';
+   const basicDefaultQueue = new sqs.Queue(this, 'basicSqs', {
+     queueName: 'simpleSQS',
+     encryption: sqs.QueueEncryption.UNENCRYPTED,
+     retentionPeriod: cdk.Duration.days(4),
+     fifo: false,
+     maxMessageSizeBytes: 262144,
+     visibilityTimeout: cdk.Duration.seconds(30),
+     // deadLetterQueue: {
+     //   maxReceiveCount: ,
+     //   queue: ,
+     // }
+   });
+   ```
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+6. Deploy using `cdk deploy`
+7. This stack will do nothing just a queue will be set up and can be used with any other service
+8. Destroy using `cdk destroy`
