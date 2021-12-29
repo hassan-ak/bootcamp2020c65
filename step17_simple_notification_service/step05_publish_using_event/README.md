@@ -69,3 +69,29 @@
      responseMappingTemplate: appsync.MappingTemplate.fromFile('response.vtl'),
    });
    ```
+
+9. create "request.vtl" to define request maping template
+
+   ```vtl
+   {
+       "version": "2018-05-29",
+       "method": "POST",
+       "resourcePath": "/",
+       "params": {
+           "headers": {
+               "content-type": "application/x-amz-json-1.1",
+               "x-amz-target":"AWSEvents.PutEvents"
+            },
+            "body": {
+                "Entries":[
+                    {
+                        "Source":"eru-appsync-events",
+                        "EventBusName": "default",
+                        "Detail":"{ \"event\": \"$ctx.arguments.event\"}",
+                        "DetailType":"Event Bridge via GraphQL"
+                    }
+                ]
+            }
+        }
+   }
+   ```
