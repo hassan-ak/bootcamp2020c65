@@ -117,3 +117,49 @@
     import * as sns from '@aws-cdk/aws-sns';
     const myTopic = new sns.Topic(this, 'MyTopic');
     ```
+
+12. Install simple quee module using `npm i @aws-cdk/aws-sqs`. Update "./lib/step05_publish_using_event-stack.ts" to create a dead letter qeue
+
+    ```js
+    import * as sqs from '@aws-cdk/aws-sqs';
+    const dlQueue = new sqs.Queue(this, 'DeadLetterQueue', {
+      queueName: 'MySubscription_DLQ',
+      retentionPeriod: cdk.Duration.days(14),
+    });
+    ```
+
+13. Install sns subscriptions using `npm i @aws-cdk/aws-sns-subscriptions`. Update "./lib/step05_publish_using_event-stack.ts" to create a subscription for the email
+
+    ```js
+    import * as subscriptions from '@aws-cdk/aws-sns-subscriptions';
+    myTopic.addSubscription(
+      new subscriptions.EmailSubscription('Email Here', {
+        json: false,
+        deadLetterQueue: dlQueue,
+      })
+    );
+    ```
+
+14. Update "./lib/step05_publish_using_event-stack.ts" to create a new rule for event
+
+    ```js
+    const rule = new events.Rule(this, 'AppSyncEventBridgeRule', {
+      eventPattern: {
+        source: ['eru-appsync-events'], // every event that has source = "eru-appsync-events" will be sent to SNS topic
+      },
+    });
+    ```
+
+15. Install aws event targets using `npm i @aws-cdk/aws-events-targets` and update "./lib/step05_publish_using_event-stack.ts" and tpoic as target to rule
+
+    ```js
+    import * as targets from '@aws-cdk/aws-events-targets';
+    rule.addTarget(new targets.SnsTopic(myTopic));
+    ```
+
+16. Deploy the app using `cdk deploy`
+
+17. To your email and verify it. verification can be seen in the Topic tab of SNS console
+18. Using GQL api send notification
+
+19. Destroy the app using `cdk destroy`
